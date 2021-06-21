@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Card</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #d3d3d373;
+        }
+
+        .sidebar {
+            margin: 0;
+            padding: 10px;
+            width: 285px;
+            background-color: #ffffffb8;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        .sidebar a.active {
+            background-color: #db492f;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+        div.content {
+            margin-left: 285px;
+            padding: 1px 16px;
+            height: 1000px;
+        }
+
+        div.content h4 {
+            padding-top: 25px !important;
+        }
+        #action{
+            display: none;
+        }
+        @media screen and (max-width: 700px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .sidebar a {
+                float: left;
+            }
+
+            div.content {
+                margin-left: 0;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .sidebar a {
+                text-align: center;
+                float: none;
+            }
+        }
+
+        .card {
+            padding: 15px;
+        }
+
+        #user {
+            display: none;
+        }
+
+        #board {
+            cursor: pointer;
+        }
+
+        #profile {
+            cursor: pointer;
+        }
+
+        /* card-icon */
+        .card-icon {
+            width: 30%;
+            background-color: #fb920a;
+            position: absolute;
+            text-align: center;
+            top: -22px;
+            height: 75px;
+
+        }
+
+        .card-icon2 {
+            text-align: center;
+            width: 30%;
+            background-color: #4da751;
+            position: absolute;
+            top: -22px;
+
+            height: 75px;
+        }
+
+        .card-icon3 {
+            padding: 0px;
+            top: -40px;
+        }
+
+        .mr-10 {
+            margin-right: 10px;
+        }
+
+        .mt-25 {
+            margin-top: 25px;
+        }
+
+        .table-card {
+            background-color: #fb920a;
+            color: white;
+            position: absolute;
+            top: -20px;
+            width: 93%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <a id="board" class="active" onclick="menuChange('das')"> <i class="fa fa-th-large mr-10"
+                aria-hidden="true"></i> Dashboard</a>
+        <a id="profile" onclick="menuChange('use')"><i class="fa fa-user mr-10" aria-hidden="true"></i>User Profile</a>
+    </div>
+
+    <div class="content">
+        <span id="das">
+            <h4 class="pl-3 pb-5">Dashboard</h4>
+            <div class="col-lg-12 mt-5">
+                <div class="row pb-5">
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card card-icon">
+                                <i class="fa fa-clone fa-2x" aria-hidden="true" style="color:white;"></i>
+                            </div>
+
+                            <span style="text-align: right;">
+                                used space<br>
+                                <h4 style="padding-top: 0px!important;"> 49/50 GB</h4>
+                            </span>
+                            <hr>
+                            <small><i class="fa fa-exclamation-triangle mr-10" aria-hidden="true"
+                                    style="color:red;"></i> Get More Space</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card card-icon2">
+                                <i class="fa fa-home fa-2x" style="color:white;"></i>
+                            </div>
+                            <span style="text-align: right;">
+                                Revenue<br>
+                                <h4 style="padding-top: 0px!important;"> $49/50 GB</h4>
+                            </span>
+                            <hr>
+                            <small><i class="fa fa-calendar-o mr-10" aria-hidden="true"></i> Last 24 Hours</small>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-lg-6">
+                        <div class="card" style="width: 60%;">
+                            <div class="card card-icon3">
+                                <canvas id="myChart"
+                                    style="width:100%;max-width:600px;background-color:#4da751;color:white;border-radius: 5px;"></canvas>
+
+                            </div>
+                            Daily Sales<br>
+                            55% increase in today sales
+                            <hr>
+                            <small>Updated 4 minutes ago</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card table-card">
+                                <h5>Employees Stats</h5>
+                                <h6>New employees on 15th September, 2016</h6>
+                            </div>
+                            <table class="table" style="margin-top:50px;">
+                                <thead>
+                                    <tr style="color:#fb920a">
+                                        <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Salary</th>
+                                    <th scope="col">Company</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myTable">
+                                    <tr>
+                                        <td colspan="5" style="text-align: center;">No Data Found!</td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <span id="user">
+            <h4 class="pl-4 pb-4">User Profile</h4>
+            <div class="col-lg-12">
+                <div class="card p-0">
+                    <form name="myForm">
+                        <div class="card-header">
+                            Form
+                        </div>
+                        <div class="card-body">
+                            <div class="row" id="content1">
+                                <div class="col-lg-4">
+                                    <label>Name</label><br>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Email</label><br>
+                                    <input type="text" name="email" class="form-control" id="Email" required
+                                        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Phone</label><br>
+                                    <input type="text" name="Phone" class="form-control" id="Phone" required
+                                        maxlength="10" minlength="10">
+                                </div>
+                                <div class="col-lg-4 mt-3">
+                                    <label>Salary</label><br>
+                                    <input type="text" name="sal" class="form-control" id="Salary">
+                                </div>
+                                <div class="col-lg-4 mt-3">
+                                    <label>Company</label><br>
+                                    <input type="text" name="sal" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 mt-3">
+                                    <a class="btn btn-primary btn-sm pull-right" href="javascript:void(0);"
+                                        onclick="addElement();"> <i class="fa fa-plus"></i> Add Company</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="col-lg-12 pr-0" style="text-align: right;">
+                                <!-- <input class="btn btn-outline-success" type="submit" value="Submit"> -->
+                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </span>
+    </div>
+    <script>
+        function delet() {
+            confirm("Are you sure want to delete?");
+        }
+
+        function menuChange(event) {
+            var x = document.getElementById("das");
+            var y = document.getElementById("user");
+            var b = document.getElementById("board");
+            var a = document.getElementById("profile");
+            if (event == 'das') {
+                b.classList.add("active");
+                a.classList.remove("active");
+                x.style.display = "block";
+                y.style.display = "none";
+            } else {
+                a.classList.add("active");
+                b.classList.remove("active");
+
+                x.style.display = "none";
+                y.style.display = "block";
+            }
+        }
+
+        var intTextBox = 1;
+
+
+        function addElement() {
+            intTextBox++;
+            var objNewDiv = document.createElement('div');
+            objNewDiv.setAttribute('id', 'div_' + intTextBox);
+            objNewDiv.setAttribute('class', 'col-lg-4 mt-4');
+            objNewDiv.innerHTML = 'Company ' + intTextBox + '<br> <input type="text" class="form-control" id="tb_' + intTextBox + '" name="tb_' + intTextBox + '"/>';
+            document.getElementById('content1').appendChild(objNewDiv);
+        }
+        function myform() {
+            var name;
+            var Email;
+            var Phone;
+            var Salary;
+            var table_data = [];
+            let obj = {
+                name: document.getElementById('name').value,
+                Email: document.getElementById('Email').value,
+                Phone: document.getElementById('Phone').value,
+                Salary: document.getElementById('Salary').value,
+            }
+
+            let localInfo = localStorage.getItem("localInfo");
+            if (localInfo != '' && localInfo != null && localInfo != undefined) {
+                table_data = JSON.parse(localInfo);
+            }
+            table_data.push(obj);
+            localStorage.setItem("localInfo", JSON.stringify(obj));
+        }
+
+
+
+
+
+
+        const form = document.querySelector("form");
+        form.addEventListener("submit", handleSubmit);
+
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            const value = Object.fromEntries(data.entries());
+            console.log(value);
+            let localInfo = localStorage.getItem("localInfo");
+            let table_data = [];
+            if (localInfo != '' && localInfo != null && localInfo != undefined) {
+                table_data = JSON.parse(localInfo);
+            }
+            table_data.push(value);
+            localStorage.setItem("localInfo", JSON.stringify(table_data));
+            let tableInfo = "<table>"
+            tableInfo += "<tr>";
+
+            tableInfo += "</tr>";
+            table_data.forEach((e, i) => {
+                tableInfo += "<tr>";
+                let data = Object.values(table_data[i]);
+                data.forEach((ee, j) => {
+                    tableInfo += '<td>' + ee + '</td><td id="action" style="cursor: pointer;"><i class="fa fa-edit mr-2"></i> <i style="color: red;"onclick="delet()" class="fa fa-times"></i></td>';
+                });
+                tableInfo += "</tr>";
+            });
+
+
+            tableInfo += "</table>";
+            document.getElementById("myTable").innerHTML = tableInfo;
+            // let x = document.getElementById("action");
+            // x.style.display = "block";
+            menuChange('das');
+        }
+
+        var xValues = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+        var yValues = [0, 10, 20, 10, 20];
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "white",
+                    borderColor: "white",
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                scales: {
+                    yAxes: [{ ticks: { min: 0, max: 40 } }],
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
